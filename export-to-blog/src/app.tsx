@@ -64,9 +64,10 @@ const App: React.FC<{}> = () => {
           key: state.ghostToken,
           url: state.ghostUrl
         });
-        if (state.mediumToken != null) {
-          mediumState.setToken(state.mediumToken);
-        }
+        mediumState.setMediumConfig({
+          token: state.mediumToken,
+          tag: state.mediumTag,
+        });
       })
       .catch(() => log({
         entry: <LogMessage
@@ -81,7 +82,8 @@ const App: React.FC<{}> = () => {
     return persistTokens(api, {
       ghostToken: ghostConfig.key,
       ghostUrl: ghostConfig.url,
-      mediumToken: mediumConfig.token
+      mediumToken: mediumConfig.token,
+      mediumTag: mediumConfig.tag
     });
   }), [ghostConfig, mediumConfig]);
 
