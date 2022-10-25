@@ -58,6 +58,7 @@ async function publishPost(token: string,tag:string, payload: PublishPayload): P
                 contentFormat: "markdown",
                 content: post.markdown,
                 tags: [tag],
+                publishStatus: "draft"
             })
         }
     }));
