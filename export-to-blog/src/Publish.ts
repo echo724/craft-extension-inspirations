@@ -41,7 +41,7 @@ export async function publishToMedium(config: MediumConfig): Promise<void> {
         api.markdown.craftBlockToMarkdown(
             page.data.subblocks,
             "common",
-            { tableSupported: false })
+            { tableSupported: true })
     ));
 
     if (markdown == null) {
