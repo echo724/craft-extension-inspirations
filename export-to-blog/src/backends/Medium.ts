@@ -42,6 +42,8 @@ async function publishPost(token: string,tag:string, payload: PublishPayload): P
     const { userId, post } = payload;
     const url = `https://api.medium.com/v1/users/${userId}/posts`;
 
+    const content = "# " + post.title + "\n\n" + post.markdown;
+
     await withCraft(api => api.httpProxy.fetch({
         url,
         headers: {
@@ -56,7 +58,7 @@ async function publishPost(token: string,tag:string, payload: PublishPayload): P
             text: JSON.stringify({
                 title: post.title,
                 contentFormat: "markdown",
-                content: post.markdown,
+                content: content,
                 tags: [tag],
                 publishStatus: "draft"
             })
