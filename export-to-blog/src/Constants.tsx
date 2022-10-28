@@ -117,6 +117,7 @@ export const COPY = {
   close: "Close",
   apiKey: "API Key",
   siteURL: "Site Url",
+  postTag: "Post Tag",
   blog: {
     ghost: "Publish to Ghost",
     medium: "Publish to Medium"

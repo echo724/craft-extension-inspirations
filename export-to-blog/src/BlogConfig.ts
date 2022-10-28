@@ -43,6 +43,8 @@ export function ghostConfigValid(
 export interface MediumState {
     mediumConfig: Partial<MediumConfig>;
     setToken: Setter<string>;
+    setTag: Setter<string>;
+    setMediumConfig: Setter<Partial<MediumConfig>>;
 }
 
 export function useMediumConfig(): MediumState {
@@ -52,13 +54,18 @@ export function useMediumConfig(): MediumState {
     ] = React.useState<Partial<MediumConfig>>({ });
 
     const setToken = React.useCallback(
-        (token: string) => setMediumConfig({ token }),
+        (token: string) => setMediumConfig({ ...mediumConfig, token }),
+        [mediumConfig, setMediumConfig],
+    );
+
+    const setTag = React.useCallback(
+        (tag: string) => setMediumConfig({ ...mediumConfig, tag }),
         [mediumConfig, setMediumConfig],
     );
 
     const memoed = React.useMemo(
-        () => ({ mediumConfig, setToken }),
-        [mediumConfig, setToken]
+        () => ({ mediumConfig, setToken, setTag, setMediumConfig }),
+        [mediumConfig, setToken, setTag]
     );
 
     return memoed;
@@ -67,5 +74,5 @@ export function useMediumConfig(): MediumState {
 export function mediumConfigValid(
     config: Partial<MediumConfig>
 ): config is MediumConfig {
-    return config.token != null;
+    return config.token != null && config.tag !== null;
 }

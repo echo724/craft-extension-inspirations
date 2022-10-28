@@ -38,9 +38,11 @@ async function getUserId(token: string): Promise<string | null> {
     return maybeUserId;
 }
 
-async function publishPost(token: string, payload: PublishPayload): Promise<void> {
+async function publishPost(token: string,tag:string, payload: PublishPayload): Promise<void> {
     const { userId, post } = payload;
     const url = `https://api.medium.com/v1/users/${userId}/posts`;
+
+    const content = "# " + post.title + "\n\n" + post.markdown;
 
     await withCraft(api => api.httpProxy.fetch({
         url,
@@ -56,7 +58,9 @@ async function publishPost(token: string, payload: PublishPayload): Promise<void
             text: JSON.stringify({
                 title: post.title,
                 contentFormat: "markdown",
-                content: post.markdown
+                content: content,
+                tags: [tag],
+                publishStatus: "draft"
             })
         }
     }));
@@ -71,10 +75,11 @@ export interface MediumApi {
 
 export interface MediumConfig {
     token: string;
+    tag: string;
 }
 
-export const MkMediumApi = ({ token }: MediumConfig): MediumApi => ({
+export const MkMediumApi = ({ token,tag }: MediumConfig): MediumApi => ({
     userId: () => getUserId(token),
-    publish: (payload: PublishPayload) => publishPost(token, payload)
+    publish: (payload: PublishPayload) => publishPost(token,tag, payload)
 });
 

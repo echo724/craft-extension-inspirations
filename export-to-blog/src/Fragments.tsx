@@ -247,9 +247,9 @@ type MediumCardProps = AppCardProps & {
 export const MediumPage: React.FC<MediumCardProps> = (props) => {
   const { isDarkMode, enabled, publish, state } = props;
 
-  const [configShown, setConfigShown] = React.useState<boolean>(
-    () => state.mediumConfig.token == null
-  );
+  const [configShown, setConfigShown] = React.useState<boolean>(() => (
+    state.mediumConfig.token == null || state.mediumConfig.tag == null
+  ));
 
   return <Padded padding={8}>
     {configShown && <Padded padding={12}>
@@ -263,6 +263,15 @@ export const MediumPage: React.FC<MediumCardProps> = (props) => {
             isDarkMode={isDarkMode}
             value={state.mediumConfig.token ?? ""}
             onChange={state.setToken}
+          />
+        </Padded>
+        <Separator color={COLORS(isDarkMode).border.normal} />
+        <Padded padding={5}>
+          <Input
+            placeHolder={COPY.postTag}
+            isDarkMode={isDarkMode}
+            value={state.mediumConfig.tag ?? ""}
+            onChange={state.setTag}
           />
         </Padded>
       </Card>

@@ -1,10 +1,10 @@
 {
-  "name": "Export to Blog",
-  "fileName": "export-to-blog",
+  "name": "Export to Blog with Tag",
+  "fileName": "export-to-blog-with-tag",
   "id": "com.craft.export.to.blog",
   "description" : "Export your Craft documents to different blogging platforms.",
-  "api": "0.0.4",
+  "api": "0.0.5",
   "main": "index.html",
-  "author": "Craft Docs",
-  "authorEmail" : "team@craft.do"
+  "author": "echo724",
+  "authorEmail" : "eunchan1001@gmail.com"
 }
